@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NVIDIA — Analyse & Perspectives 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050507;
+    --surface: #0c0c14;
+    --surface2: #121222;
+    --border: #1c1c30;
+    --accent: #76ef86;
+    --accent2: #818cf8;
+    --orange: #fb923c;
+    --warn: #fbbf24;
+    --danger: #f87171;
+    --text: #c9cde4;
+    --heading: #eef0ff;
+    --muted: #3d3d60;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; font-size:14.5px; line-height:1.7; padding:28px 18px 60px; }
+  .wrap { max-width:900px; margin:0 auto; }
+
+  /* HERO */
+  .hero { background:linear-gradient(135deg,#0c0c14,#0d0d1e); border:1px solid var(--border); border-top:3px solid var(--accent); border-radius:14px; padding:26px 28px 22px; margin-bottom:24px; position:relative; overflow:hidden; }
+  .hero::before { content:'⚡'; position:absolute; right:28px; top:50%; transform:translateY(-50%); font-size:90px; opacity:0.05; pointer-events:none; }
+  .hero-badge { display:inline-flex; align-items:center; gap:8px; background:rgba(118,239,134,0.1); border:1px solid rgba(118,239,134,0.25); border-radius:20px; padding:4px 14px; font-size:11px; font-weight:700; color:var(--accent); letter-spacing:1.5px; text-transform:uppercase; margin-bottom:14px; }
+  .hero h1 { font-size:23px; font-weight:900; color:var(--heading); line-height:1.25; margin-bottom:10px; }
+  .hero-meta { display:flex; flex-wrap:wrap; gap:14px; font-size:12px; color:var(--muted); }
+
+  /* SELL ON NEWS */
+  .son { background:rgba(251,146,60,0.07); border:1px solid rgba(251,146,60,0.28); border-radius:12px; padding:18px 20px; margin-bottom:16px; }
+  .son .at { font-size:11px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:var(--orange); margin-bottom:8px; }
+  .son p { color:#fed7aa; font-size:13.5px; margin-bottom:6px; }
+  .son p:last-child { margin-bottom:0; }
+  .son strong { color:#fff7ed; }
+
+  /* SLBL */
+  .slbl { font-size:11px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--accent); margin-bottom:14px; display:flex; align-items:center; gap:10px; }
+  .slbl::after { content:''; flex:1; height:1px; background:var(--border); }
+
+  /* KPI */
+  .kg { display:grid; grid-template-columns:repeat(auto-fill,minmax(185px,1fr)); gap:10px; margin-bottom:28px; }
+  .kpi { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:14px 16px; }
+  .kl { font-size:10.5px; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:5px; }
+  .kv { font-family:'IBM Plex Mono',monospace; font-size:18px; font-weight:600; color:var(--heading); margin-bottom:3px; }
+  .kd { font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:700; }
+  .kd.up{color:var(--accent);} .kd.warn{color:var(--warn);} .kd.blue{color:var(--accent2);} .kd.red{color:var(--danger);} .kd.ora{color:var(--orange);}
+  .ks { font-size:10.5px; color:var(--muted); margin-top:2px; }
+
+  /* CARD */
+  .card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px 22px; margin-bottom:12px; }
+  .card h3 { font-size:14.5px; font-weight:700; color:var(--heading); margin-bottom:11px; display:flex; align-items:center; gap:9px; }
+  .card h3 .ic { width:26px; height:26px; border-radius:6px; background:rgba(118,239,134,0.1); display:flex; align-items:center; justify-content:center; font-size:13px; flex-shrink:0; }
+  .card p { color:#8b90b8; margin-bottom:9px; font-size:14px; }
+  .card p:last-child { margin-bottom:0; }
+  strong { color:var(--heading); font-weight:600; }
+  .hl{color:var(--accent);font-weight:600;} .hlb{color:var(--accent2);font-weight:600;} .hlw{color:var(--warn);font-weight:600;} .hlr{color:var(--danger);font-weight:600;} .hlo{color:var(--orange);font-weight:600;}
+
+  /* TABLE */
+  .dt { width:100%; border-collapse:collapse; font-size:13px; margin:10px 0; }
+  .dt th { text-align:left; padding:8px 10px; background:var(--surface2); color:var(--muted); font-size:10.5px; text-transform:uppercase; letter-spacing:1px; font-weight:600; }
+  .dt td { padding:8px 10px; border-bottom:1px solid var(--border); color:#8b90b8; }
+  .dt tr:last-child td { border-bottom:none; }
+  .dt td:first-child { color:var(--heading); font-weight:600; }
+  .dt td.g{color:var(--accent);font-family:'IBM Plex Mono',monospace;font-weight:700;}
+  .dt td.w{color:var(--warn);font-family:'IBM Plex Mono',monospace;font-weight:700;}
+  .dt td.b{color:var(--accent2);font-family:'IBM Plex Mono',monospace;font-weight:700;}
+  .dt td.o{color:var(--orange);font-family:'IBM Plex Mono',monospace;font-weight:700;}
+  .dt td.r{color:var(--danger);font-family:'IBM Plex Mono',monospace;font-weight:700;}
+
+  /* LIST */
+  .ul { list-style:none; padding:0; }
+  .ul li { padding:4px 0 4px 20px; position:relative; color:#8b90b8; font-size:14px; }
+  .ul li::before { content:'→'; position:absolute; left:0; color:var(--accent); font-weight:700; }
+  .ul li.risk::before { content:'⚠'; color:var(--danger); font-size:11px; top:6px; }
+  .ul li.neu::before { content:'◆'; color:var(--accent2); font-size:9px; top:7px; }
+
+  /* FIBO */
+  .frow { display:flex; align-items:center; gap:10px; padding:7px 0; border-bottom:1px solid var(--border); }
+  .frow:last-child { border-bottom:none; }
+  .flvl { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--muted); width:70px; }
+  .fprice { font-family:'IBM Plex Mono',monospace; font-size:15px; font-weight:600; color:var(--heading); width:70px; }
+  .fbar { flex:1; height:4px; background:var(--surface2); border-radius:2px; overflow:hidden; }
+  .fbar-fill { height:100%; border-radius:2px; }
+  .ftag { width:120px; text-align:right; }
+
+  /* TAG */
+  .tag { display:inline-block; padding:2px 9px; border-radius:20px; font-size:11px; font-weight:700; }
+  .tg{background:rgba(118,239,134,0.12);color:var(--accent);}
+  .tb{background:rgba(129,140,248,0.12);color:var(--accent2);}
+  .tw{background:rgba(251,191,36,0.12);color:var(--warn);}
+  .tr{background:rgba(248,113,113,0.12);color:var(--danger);}
+  .to{background:rgba(251,146,60,0.12);color:var(--orange);}
+
+  /* CAPEX BAR */
+  .cbar-wrap { margin:14px 0; }
+  .cbar-item { display:flex; align-items:center; gap:10px; padding:6px 0; border-bottom:1px solid var(--border); }
+  .cbar-item:last-child { border-bottom:none; }
+  .cbar-lbl { width:120px; font-size:12px; color:var(--heading); font-weight:600; }
+  .cbar { flex:1; height:6px; background:var(--surface2); border-radius:3px; overflow:hidden; }
+  .cbar-fill { height:100%; border-radius:3px; background:var(--accent2); }
+  .cbar-val { font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--accent); font-weight:700; width:70px; text-align:right; }
+
+  /* PERSPECTIVES */
+  .pg { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:12px; }
+  @media(max-width:600px){ .pg{grid-template-columns:1fr;} }
+  .pc { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px; }
+  .pc .hz { font-size:10.5px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:8px; }
+  .pc h4 { font-size:13px; color:var(--heading); margin-bottom:6px; }
+  .pc ul { list-style:none; padding:0; }
+  .pc ul li { font-size:12.5px; color:var(--muted); padding:3px 0 3px 12px; position:relative; }
+  .pc ul li::before { content:'·'; position:absolute; left:0; font-weight:900; font-size:16px; top:-1px; }
+
+  /* VERDICT */
+  .verdict { background:linear-gradient(135deg,rgba(118,239,134,0.05),rgba(129,140,248,0.04)); border:1px solid rgba(118,239,134,0.2); border-radius:12px; padding:22px; }
+  .verdict .vt { font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:12px; }
+  .verdict p { color:#8b90b8; margin-bottom:9px; font-size:14px; }
+  .verdict p:last-child { margin-bottom:0; }
+  .verdict .conclu { font-size:14.5px; font-weight:600; color:var(--heading); border-top:1px solid var(--border); padding-top:13px; margin-top:13px; }
+
+  .gap { height:26px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge">🟢 Analyse Forum · NVDA · NASDAQ · Mega-cap IA</div>
+    <h1>NVIDIA — Analyse Fondamentale & Technique<br>+ Perspectives CT / MT / LT</h1>
+    <div class="hero-meta">
+      <span>📅 28 février 2026</span>
+      <span>💵 Cours ~177,19 $ (-4,16%)</span>
+      <span>🏦 Capitalisation : ~4 300 Md$</span>
+      <span>⚠️ NPC — pas un conseil en investissement</span>
+    </div>
+  </div>
+
+  <!-- SELL ON NEWS -->
+  <div class="son">
+    <div class="at">📉 Phénomène "Sell on News" — résultats Q4 FY2026 du 26 fév. 2026</div>
+    <p><strong>Nvidia a publié des résultats records qui battent le consensus sur tous les indicateurs</strong> — et l'action baisse de -4% le lendemain. Ce paradoxe illustre le défi actuel de la valorisation de NVDA : le marché est désormais <strong>insensible aux "beats" habituels</strong>. Les investisseurs attendent des signaux sur la durabilité des dépenses IA en 2027 et au-delà, pas juste des chiffres trimestriels, même brillants.</p>
+  </div>
+
+  <!-- KPIs -->
+  <div class="slbl">Chiffres clés — Q4 FY2026 (publié 26/02/2026)</div>
+  <div class="kg">
+    <div class="kpi">
+      <div class="kl">CA Q4 FY2026</div>
+      <div class="kv">68,1 Md$</div>
+      <div class="kd up">▲ +73% YoY · +20% QoQ</div>
+      <div class="ks">vs consensus 65,6 Md$ (+3,87%)</div>
+    </div>
+    <div class="kpi">
+      <div class="kl">CA FY2026 annuel</div>
+      <div class="kv">215,9 Md$</div>
+      <div class="kd up">▲ +65% vs FY2025</div>
+      <div class="ks">record historique absolu</div>
+    </div>
+    <div class="kpi">
+      <div class="kl">Bénéfice net FY2026</div>
+      <div class="kv">117 Md$</div>
+      <div class="kd up">▲ +58% vs FY2025</div>
+      <div class="ks">BPA Q4 : 1,62$ vs 1,52$ attendu</div>
+    </div>
+    <div class="kpi">
+      <div class="kl">Marge brute Q4</div>
+      <div class="kv">75%</div>
+      <div class="kd up">▲ record</div>
+      <div class="ks">73,8% annuel — légère érosion</div>
+    </div>
+    <div class="kpi">
+      <div class="kl">Guidance Q1 FY2027</div>
+      <div class="kv">78 Md$</div>
+      <div class="kd up">▲ vs consensus 72,8 Md$</div>
+      <div class="ks">+7,4% au-dessus des attentes</div>
+    </div>
+    <div class="kpi">
+      <div class="kl">Data Center Q4</div>
+      <div class="kv">~61 Md$</div>
+      <div class="kd blue">90% du CA total</div>
+      <div class="ks">Blackwell / Hopper : demande > offre</div>
+    </div>
+  </div>
+
+  <!-- FONDAMENTAUX -->
+  <div class="gap"></div>
+  <div class="slbl">Analyse fondamentale — la machine à cash IA</div>
+  <div class="card">
+    <h3><span class="ic">⚡</span> 1. Des résultats astronomiques — mais le marché veut plus</h3>
+    <p>Le Q4 FY2026 est un trimestre extraordinaire à presque tous points de vue. <span class="hl">68,1 Md$ de CA en un seul trimestre</span>, soit plus que l'intégralité du CA annuel de nombreuses entreprises du CAC 40 réunies. La croissance séquentielle de +20% est remarquable à cette taille.</p>
+    <table class="dt">
+      <tr><th>Indicateur</th><th>Q4 FY2026</th><th>Consensus</th><th>Surprise</th></tr>
+      <tr><td>Chiffre d'affaires</td><td class="g">68,1 Md$</td><td style="color:#8b90b8">65,56 Md$</td><td class="g">+3,87% ✓</td></tr>
+      <tr><td>BPA non-GAAP</td><td class="g">1,62 $</td><td style="color:#8b90b8">1,52 $</td><td class="g">+6,58% ✓</td></tr>
+      <tr><td>Marge brute</td><td class="g">75%</td><td style="color:#8b90b8">74,8%</td><td class="g">+20 bps ✓</td></tr>
+      <tr><td>Guidance Q1 FY2027</td><td class="g">78 Md$</td><td style="color:#8b90b8">72,78 Md$</td><td class="g">+7,2% ✓</td></tr>
+    </table>
+    <p style="margin-top:10px">Malgré tout cela, <strong>NVDA a baissé de -4% le lendemain</strong>. La raison : les investisseurs attendent des garanties plus solides sur la pérennité des dépenses massives dans l'IA, et le marché est devenu insensible aux dépassements habituels.</p>
+  </div>
+
+  <div class="card">
+    <h3><span class="ic">🏗️</span> 2. Capex IA des hyperscalers — la demande structurelle</h3>
+    <p>La thèse haussière de Nvidia repose sur l'accélération massive des dépenses d'infrastructure IA des géants tech. Ces chiffres sont sans précédent dans l'histoire de l'industrie :</p>
+    <div class="cbar-wrap">
+      <div class="cbar-item">
+        <div class="cbar-lbl">Meta</div>
+        <div class="cbar"><div class="cbar-fill" style="width:60%"></div></div>
+        <div class="cbar-val">~65 Md$</div>
+      </div>
+      <div class="cbar-item">
+        <div class="cbar-lbl">Microsoft</div>
+        <div class="cbar"><div class="cbar-fill" style="width:74%"></div></div>
+        <div class="cbar-val">~80 Md$</div>
+      </div>
+      <div class="cbar-item">
+        <div class="cbar-lbl">Alphabet</div>
+        <div class="cbar"><div class="cbar-fill" style="width:75%"></div></div>
+        <div class="cbar-val">~75 Md$</div>
+      </div>
+      <div class="cbar-item">
+        <div class="cbar-lbl">Amazon AWS</div>
+        <div class="cbar"><div class="cbar-fill" style="width:100%"></div></div>
+        <div class="cbar-val">~105 Md$</div>
+      </div>
+    </div>
+    <p>Soit <span class="hl">~325 Md$ de capex IA chez les 4 seuls hyperscalers américains en 2026</span>, contre ~215 Md$ en 2025 (+51%). Nvidia capture une part disproportionnée de ces dépenses. Jensen Huang confirme que la demande dépasse l'offre — et que <span class="hlb">les engagements clients courent jusqu'en 2027.</span></p>
+    <p>Le CEO a déclaré que <strong>la scalabilité de Blackwell dépasse les prévisions initiales</strong> et que chaque data center est "power-constrained" — ce qui renforce le choix de l'architecture GPU Nvidia pour le ratio performance/watt.</p>
+  </div>
+
+  <div class="card">
+    <h3><span class="ic">🔭</span> 3. Architecture Vera Rubin — le prochain catalyseur</h3>
+    <p>La conférence <strong>GTC (GPU Technology Conference) de mars 2026</strong> est le prochain événement majeur. Nvidia y devrait présenter la feuille de route complète de l'architecture <strong>Vera Rubin</strong>, la génération qui succède à Blackwell.</p>
+    <ul class="ul">
+      <li>Vera Rubin = nouveau CPU ARM maison (Vera) + GPU Rubin de nouvelle génération</li>
+      <li class="neu">Performance annoncée : <span class="hlb">3,3× Blackwell</span> en inférence — rupture technologique majeure</li>
+      <li>Disponibilité H2 2026 pour les premiers systèmes</li>
+      <li class="risk">Risque d'exécution : la complexité croissante des process TSMC N3 peut créer des délais</li>
+    </ul>
+    <p style="margin-top:8px">Cette présentation pourrait <strong>déclencher un re-rating haussier de l'action</strong> si elle confirme le leadership technologique pour 2027-2028 — ou décevoir si les détails sont insuffisants.</p>
+  </div>
+
+  <!-- RISQUES -->
+  <div class="gap"></div>
+  <div class="slbl">Les questions que le marché se pose</div>
+  <div class="card">
+    <h3><span class="ic">⚠️</span> Les vents contraires à surveiller</h3>
+    <table class="dt">
+      <tr><th>Risque</th><th>Impact</th><th>Probabilité</th></tr>
+      <tr><td>DeepSeek & IA efficiente</td><td style="color:#8b90b8;font-size:12px">Moins de GPUs nécessaires si IA moins gourmande → demande moindre</td><td class="w">Modérée</td></tr>
+      <tr><td>Puces custom hyperscalers (TPU Google, Trainium AWS…)</td><td style="color:#8b90b8;font-size:12px">Substitution partielle sur certains workloads</td><td class="o">En cours</td></tr>
+      <tr><td>Restrictions export Chine</td><td style="color:#8b90b8;font-size:12px">Marché ~50 Md$/an potentiel bloqué</td><td class="r">Actif</td></tr>
+      <tr><td>Tarifs douaniers Trump</td><td style="color:#8b90b8;font-size:12px">Hausse des coûts TSMC/supply chain</td><td class="w">Incertitude</td></tr>
+      <tr><td>Pic des dépenses capex IA 2027</td><td style="color:#8b90b8;font-size:12px">Ralentissement de la croissance si les hyperscalers réduisent</td><td class="o">Débat ouvert</td></tr>
+      <tr><td>Concurrence Huawei / AMD</td><td style="color:#8b90b8;font-size:12px">AMD Data Center reste ~11× plus petit</td><td class="g">Faible CT</td></tr>
+    </table>
+    <p style="margin-top:10px">Note importante sur DeepSeek : <strong>paradoxalement, même DeepSeek utilise des puces Nvidia</strong> (Blackwell, malgré les restrictions). Un senior de l'administration Trump a indiqué que DeepSeek a utilisé la puce Blackwell de Nvidia pour entraîner son dernier modèle, en violation potentielle des lois sur le contrôle des exportations. Ce qui renforce l'idée que Nvidia reste incontournable même pour ses concurrents.</p>
+  </div>
+
+  <!-- VALORISATION -->
+  <div class="card">
+    <h3><span class="ic">💰</span> Valorisation — cheap ou cher ?</h3>
+    <p>À 177$ par action, la capitalisation boursière de Nvidia avoisine <strong>~4 300 Md$</strong>. Cela peut sembler astronomique — mais les multiples racontent une histoire différente :</p>
+    <table class="dt">
+      <tr><th>Ratio</th><th>NVDA actuel</th><th>Comparaison</th></tr>
+      <tr><td>P/E FY2026</td><td class="b">~37×</td><td style="color:#8b90b8;font-size:12px">S&P 500 moyen : ~21×</td></tr>
+      <tr><td>PEG ratio</td><td class="g">~0,44</td><td style="color:#8b90b8;font-size:12px">PEG < 1 = potentiellement sous-évalué</td></tr>
+      <tr><td>P/E FY2027 (estimé)</td><td class="g">~27-28×</td><td style="color:#8b90b8;font-size:12px">Raisonnable pour la croissance projetée</td></tr>
+      <tr><td>Free Cash Flow yield</td><td class="g">~2,5%</td><td style="color:#8b90b8;font-size:12px">Solide pour une megacap tech</td></tr>
+    </table>
+    <p style="margin-top:10px">Le PEG à 0,44 est le chiffre clé : <span class="hl">une action avec un PEG < 1 est considérée comme bon marché relativement à sa croissance.</span> Pour une société qui croit à 65%+ et affiche des marges de 75%, un P/E de 37× peut se justifier amplement. AMD, avec un Data Center ~11× plus petit et des marges inférieures, trade à un multiple supérieur à Nvidia.</p>
+  </div>
+
+  <!-- ANALYSE TECHNIQUE -->
+  <div class="gap"></div>
+  <div class="slbl">Analyse technique — Graphique 1 semaine</div>
+  <div class="card">
+    <h3><span class="ic">📈</span> Niveaux clés — cours 177,19 $ · RSI 48,31</h3>
+    <p>Le graphique hebdomadaire montre une action en <strong>consolidation / légère correction</strong> depuis les plus hauts historiques (~213 $). Le cours évolue dans un couloir défini par plusieurs niveaux horizontaux importants, avec un RSI et un MACD qui signalent une pression vendeuse modérée à court terme.</p>
+
+    <div style="margin:14px 0">
+      <div class="frow">
+        <div class="flvl">ATH</div>
+        <div class="fprice" style="color:var(--muted)">~213 $</div>
+        <div class="fbar"><div class="fbar-fill" style="width:100%;background:#1e1e30"></div></div>
+        <span class="ftag"><span class="tag" style="background:rgba(71,85,105,0.2);color:#64748b">plus haut hist.</span></span>
+      </div>
+      <div class="frow">
+        <div class="flvl">R2</div>
+        <div class="fprice" style="color:var(--danger)">197,68 $</div>
+        <div class="fbar"><div class="fbar-fill" style="width:88%;background:var(--danger)"></div></div>
+        <span class="ftag"><span class="tag tr">résistance forte</span></span>
+      </div>
+      <div class="frow">
+        <div class="flvl">R1</div>
+        <div class="fprice" style="color:var(--warn)">186,22 $</div>
+        <div class="fbar"><div class="fbar-fill" style="width:72%;background:var(--warn)"></div></div>
+        <span class="ftag"><span class="tag tw">résistance</span></span>
+      </div>
+      <div class="frow" style="background:rgba(118,239,134,0.04);border-radius:6px;padding:7px 4px">
+        <div class="flvl" style="color:var(--accent)">COURS</div>
+        <div class="fprice" style="color:var(--accent)">177,19 $</div>
+        <div class="fbar"><div class="fbar-fill" style="width:60%;background:var(--accent)"></div></div>
+        <span class="ftag"><span class="tag tg">cours actuel</span></span>
+      </div>
+      <div class="frow">
+        <div class="flvl">S1</div>
+        <div class="fprice">175,22 $</div>
+        <div class="fbar"><div class="fbar-fill" style="width:52%;background:var(--accent2)"></div></div>
+        <span class="ftag"><span class="tag tb">support proche</span></span>
+      </div>
+      <div class="frow">
+        <div class="flvl">S2</div>
+        <div class="fprice">164,03 $</div>
+        <div class="fbar"><div class="fbar-fill" style="width:40%;background:var(--accent2)"></div></div>
+        <span class="ftag"><span class="tag tb">support fort</span></span>
+      </div>
+      <div class="frow">
+        <div class="flvl">S3</div>
+        <div class="fprice">149,39 $</div>
+        <div class="fbar"><div class="fbar-fill" style="width:26%;background:#475569"></div></div>
+        <span class="ftag"><span class="tag tp">zone achat LT</span></span>
+      </div>
+      <div class="frow">
+        <div class="flvl">S4</div>
+        <div class="fprice">142,97 $</div>
+        <div class="fbar"><div class="fbar-fill" style="width:18%;background:#334155"></div></div>
+        <span class="ftag"><span class="tag tp">support majeur</span></span>
+      </div>
+    </div>
+
+    <!-- RSI neutre/faible -->
+    <div style="background:rgba(251,146,60,0.07);border:1px solid rgba(251,146,60,0.25);border-radius:8px;padding:14px 16px;margin:12px 0;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--orange);margin-bottom:8px;">⚠️ Signal technique neutre-baissier CT — RSI hebdo 48,31 · MACD négatif</div>
+      <p style="color:#fed7aa;margin-bottom:6px;font-size:13.5px;">Le RSI hebdomadaire à <strong style="color:#fff7ed">48,31</strong> est en zone neutre légèrement sous 50 — pas de signal de survente extrême, mais la pression vendeuse l'emporte à court terme. Le <strong style="color:#fff7ed">MACD Zéro Lag est négatif à -5,94</strong>, confirmant que la tendance de court terme est baissière.</p>
+      <p style="color:#fed7aa;margin-bottom:0;font-size:13.5px;">La consolidation est saine et normale après un parcours exceptionnel. <strong style="color:#fff7ed">Un RSI hebdo à 48 sur Nvidia représente historiquement une zone d'accumulation intéressante</strong> — les précédentes fois où NVDA a touché ces niveaux post-résultats, le titre a rebondi dans les 4-8 semaines suivantes.</p>
+    </div>
+
+    <p>La <strong>zone de support 175-164 $</strong> est cruciale. Si elle tient, le scénario de rebond vers <span class="hlw">186 $ → 197 $</span> se met en place, notamment porté par la conférence GTC de mars. Si elle cède, le prochain support significatif est à <span class="hlb">149-143 $</span> — une zone de très bonne opportunité long terme si elle est atteinte.</p>
+  </div>
+
+  <!-- PERSPECTIVES -->
+  <div class="gap"></div>
+  <div class="slbl">Perspectives CT / MT / LT</div>
+  <div class="pg">
+    <div class="pc">
+      <div class="hz" style="color:var(--orange)">🕐 CT · 0-3 mois</div>
+      <h4>Catalyseurs</h4>
+      <ul>
+        <li>GTC mars 2026 — feuille de route Vera Rubin</li>
+        <li>Premiers systèmes Blackwell Ultra (H2 2026)</li>
+        <li>Q1 FY2027 résultats (mai) — CA guidé 78 Md$</li>
+        <li>Résolution incertitude tarifaire</li>
+      </ul>
+      <h4 style="margin-top:10px;color:var(--warn)">Risques CT</h4>
+      <ul>
+        <li>MACD négatif + RSI < 50 → pression persistante</li>
+        <li>GTC déçoit sur Vera Rubin</li>
+        <li>Escalade tarifaire US-Chine</li>
+        <li>"Sell on news" structurel à ce niveau</li>
+      </ul>
+    </div>
+    <div class="pc">
+      <div class="hz" style="color:var(--accent)">📅 MT · 3-12 mois</div>
+      <h4>Moteurs</h4>
+      <ul>
+        <li>Montée en charge Blackwell (production TSMC)</li>
+        <li>325 Md$ de capex hyperscalers 2026</li>
+        <li>Vera Rubin = 3,3× Blackwell en inférence</li>
+        <li>Accélération gaming + automobile (hors IA)</li>
+        <li>CUDA — fossé logiciel infranchissable pour AMD</li>
+      </ul>
+      <h4 style="margin-top:10px;color:var(--warn)">Risques MT</h4>
+      <ul>
+        <li>Adoption puces custom hyperscalers +10-15%</li>
+        <li>Chine marché toujours bloqué (H200/H20)</li>
+        <li>Érosion marge brute < 72%</li>
+      </ul>
+    </div>
+    <div class="pc">
+      <div class="hz" style="color:var(--accent2)">🔭 LT · 12 mois+</div>
+      <h4>Thèse haussière</h4>
+      <ul>
+        <li>Infrastructure physique de l'IA mondiale → Nvidia en est le cœur</li>
+        <li>CUDA : 3 M+ développeurs formés = switching cost énorme</li>
+        <li>Vera Rubin → Feynman (2028) → cycle d'innovation continu</li>
+        <li>Sovereign AI : pays entiers commandent des data centers NV</li>
+        <li>Automobile : Orin → Thor → prochaine gen conduite autonome</li>
+      </ul>
+      <h4 style="margin-top:10px;color:var(--danger)">Risques LT</h4>
+      <ul>
+        <li>Pic des dépenses capex IA (2027-2028 ?)</li>
+        <li>Disruption modèle IA (efficience → moins de compute)</li>
+        <li>Retour Chine avec puces Huawei performantes</li>
+        <li>Réglementation antitrust US sur CUDA</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- VERDICT -->
+  <div class="gap"></div>
+  <div class="slbl">Mon avis personnel</div>
+  <div class="verdict">
+    <div class="vt">💬 Verdict</div>
+    <p>Nvidia est une situation atypique en bourse : <strong>les fondamentaux sont excellents, les résultats battent le consensus, et le cours baisse.</strong> Ce paradoxe s'explique par la <em>perception</em> que les bonnes nouvelles sont déjà dans le prix, et que le marché cherche maintenant à pricer 2027-2028, pas 2026.</p>
+    <p>Ce qui me paraît important à souligner :</p>
+    <ul class="ul" style="margin:8px 0">
+      <li>Un <span class="hl">PEG à 0,44</span> signifie que l'action est bon marché relativement à sa croissance — AMD trade à un multiple supérieur avec une fraction du business</li>
+      <li>La demande dépasse l'offre <span class="hl">avec des engagements clients jusqu'en 2027</span> — ce n'est pas une demande spéculative</li>
+      <li><span class="hlb">CUDA reste le fossé le plus large de l'industrie tech</span> : 3M+ développeurs, une décennie d'investissement — aucun concurrent ne peut le répliquer en 2-3 ans</li>
+      <li>La conférence GTC de <span class="hlw">mars 2026</span> est le prochain catalyseur — Vera Rubin pourrait relancer le momentum</li>
+    </ul>
+    <p><strong>Les vraies questions sont sur 2027-2028 :</strong> est-ce que les hyperscalers continueront à dépenser 300+ Md$/an ? Est-ce que l'IA efficiente (DeepSeek-like) réduit le besoin en compute ? Ces questions n'ont pas encore de réponse définitive — et c'est pourquoi le marché hésite.</p>
+    <div class="conclu">
+      🎯 En résumé : <strong>excellente valeur fondamentale à MT/LT, pression technique réelle à CT.</strong> RSI hebdo 48 + MACD négatif = pas urgence d'acheter demain matin. <span style="color:var(--warn);font-weight:600">Niveaux d'entrée intéressants : 175-164 $ (support actuel) puis 149-143 $ (si la pression continue). Résistances : 186 $ → 197 $. Catalyseur CT : GTC mars 2026.</span>
+    </div>
+  </div>
+
+  <div style="margin-top:20px;padding:12px;background:var(--surface);border-radius:8px;font-size:11.5px;color:var(--muted);text-align:center;border:1px solid var(--border)">
+    Sources : NVIDIA Press Release Q4 FY2026 (26/02/2026), Investing.com, Zonebourse, Kiplinger, Yahoo Finance Earnings · Analyse personnelle non professionnelle · Ne constitue pas un conseil en investissement · DYOR
+  </div>
+
+</div>
+</body>
+</html>
